@@ -28,6 +28,8 @@ services:
                 DB_ROOT: ${DB_ROOT}
         ports:
             - "3306:3306"
+        volumes:
+            - db-volume:/var/lib/mysql
         networks:
             - inception
 

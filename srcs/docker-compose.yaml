@@ -1,9 +1,9 @@
-version: "3.5"
+version: "3"
 
 services:
     nginx:
-        build: ./requirements/nginx/
         container_name: "NGINX"
+        build: ./requirements/nginx/
         volumes:
             - "./requirements/nginx/conf:/etc/nginx/http.d/"
             - "./requirements/nginx/tools:/etc/nginx/tools/"
@@ -11,3 +11,16 @@ services:
         ports:
             - "443:443"
         restart: always
+    
+    mariadb:
+        container_name: "mariadb"
+        build:
+            context: .
+            dockerfile: ./requirements/mariadb/Dockerfile
+            args:
+                DB_NAME: ${DB_NAME}
+                DB_USER: ${DB_USER}
+                DB_PASS: ${DB_PASS}
+                DB_ROOT: ${DB_ROOT}
+        ports:
+            - "3306:3306"
